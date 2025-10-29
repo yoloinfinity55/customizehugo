@@ -1,19 +1,11 @@
-# Hugo build output
+# Hugo
 /public/
+/resources/
+/hugo_stats.json
 
-# Hugo build lock file
-.hugo_build.lock
-
-# Temporary files
-*.tmp
-
-# OS generated files
+# Node.js
+/node_modules/
+.env
 .DS_Store
-Thumbs.db
-
-# IDE files
-.vscode/
-.idea/
-
-# Logs
-*.log
+package-lock.json
+package.json
