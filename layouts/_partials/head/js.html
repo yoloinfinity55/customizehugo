@@ -1,16 +1,14 @@
-{{- with resources.Get "js/main.js" }}
-  {{- $opts := dict
-    "minify" (not hugo.IsDevelopment)
-    "sourceMap" (cond hugo.IsDevelopment "external" "")
-    "targetPath" "js/main.js"
-  }}
-  {{- with . | js.Build $opts }}
-    {{- if hugo.IsDevelopment }}
-      <script src="{{ .RelPermalink }}"></script>
-    {{- else }}
-      {{- with . | fingerprint }}
-        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
-      {{- end }}
-    {{- end }}
-  {{- end }}
-{{- end }}
+{{- $js := resources.Get "js/main.js" | resources.ExecuteAsTemplate "main.js" . -}}
+{{- $themeToggle := resources.Get "js/themetoggle.js" | resources.ExecuteAsTemplate "themetoggle.js" . -}}
+{{- $bundle := slice $js $themeToggle | resources.Concat "js/bundle.js" -}}
+{{- $opts := dict "minify" (not hugo.IsDevelopment) "sourceMap" (cond hugo.IsDevelopment "external" "") -}}
+{{- $built := $bundle | js.Build $opts -}}
+
+{{- if hugo.IsDevelopment -}}
+  <script src="{{ $built.RelPermalink }}"></script>
+{{- else -}}
+  {{- with $built | fingerprint -}}
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+  {{- end -}}
+{{- end -}}
+
