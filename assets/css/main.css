@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  /* Modern color palette using Tailwind's recommended zinc + blue system */
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
+  /* Modern color palette using Tailwind's recommended zinc + navy blue system */
+  --color-primary: #1e3a8a;
+  --color-primary-hover: #1e40af;
   --color-primary-light: #dbeafe;
   --color-surface: #fafafa;
   --color-text: #18181b;
-  --color-text-muted: #71717a;
+  --color-text-muted: #52525b;
   --color-border: #e4e4e7;
   
   /* Typography */
@@ -37,7 +37,7 @@
 body {
   font-family: var(--font-sans);
   color: var(--color-text);
-  background: linear-gradient(to bottom, #ffffff 0%, var(--color-surface) 100%);
+  background: var(--color-surface);
   line-height: 1.7;
   min-height: 100vh;
   display: flex;
@@ -61,6 +61,9 @@ header {
   top: 0;
   z-index: 50;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 body.dark header {
@@ -71,12 +74,9 @@ body.dark header {
 header h1 {
   font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1e3a8a;
   letter-spacing: -0.025em;
+  flex-shrink: 0;
 }
 
 /* Navigation styling */
@@ -86,7 +86,6 @@ header nav ul {
   gap: 2rem;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap;
 }
 
 header nav li {
@@ -129,6 +128,8 @@ header nav a.active::after {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-grow: 1;
+  justify-content: flex-end;
 }
 
 #theme-toggle {
@@ -192,54 +193,85 @@ body.dark main > p {
   background: var(--color-surface);
 }
 
+/* Posts grid layout */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.posts-grid section {
+  margin-bottom: 0;
+}
+
 /* Post section cards */
-section {
+.post-card {
   background: white;
   padding: 2rem;
   border-radius: 1rem;
-  margin-bottom: 2rem;
   border: 1px solid var(--color-border);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-body.dark section {
+body.dark .post-card {
   background: var(--color-surface);
 }
 
-section:hover {
+.post-card:hover {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
   border-color: var(--color-primary);
 }
 
-section h2 {
+.post-card-content {
+  flex-grow: 1;
+}
+
+.post-card-title {
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-weight: 700;
   margin-top: 0;
 }
 
-section h2 a {
+.post-card-title a {
   color: var(--color-text);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-section h2 a:hover {
+.post-card-title a:hover {
   color: var(--color-primary);
   text-decoration: none;
 }
 
-section p {
+.post-card-date {
   color: var(--color-text-muted);
+  font-size: 0.875rem;
   margin-bottom: 1rem;
-  line-height: 1.8;
 }
 
-section p:last-child {
+.post-card-summary {
+  color: var(--color-text-muted);
+  line-height: 1.8;
   margin-bottom: 0;
 }
+
+/* Responsive design for post cards */
+@media (max-width: 768px) {
+  .post-card {
+    padding: 1.5rem;
+  }
+
+  .post-card-title {
+    font-size: 1.25rem;
+  }
+}
+
 
 /* Modern footer */
 footer {

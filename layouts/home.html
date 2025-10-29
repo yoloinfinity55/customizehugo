@@ -1,9 +1,14 @@
 {{ define "main" }}
   {{ .Content }}
-  {{ range site.RegularPages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{ end }}
+  <div class="posts-grid">
+    {{ range .Paginator.Pages.ByDate.Reverse }}
+      <section class="post-card">
+        <div class="post-card-content">
+          <h2 class="post-card-title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+          <div class="post-card-date">{{ .Date.Format "2006/01/02" }}</div>
+          <p class="post-card-summary">{{ .Summary }}</p>
+        </div>
+      </section>
+    {{ end }}
+  </div>
 {{ end }}
