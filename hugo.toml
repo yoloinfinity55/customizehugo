@@ -1,6 +1,6 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://yoloinfinity55.github.io/customizehugo/'
 languageCode = 'en-US'
-title = 'My New Hugo Site'
+title = 'Hugo Tailwind'
 
 [menus]
   [[menus.main]]
